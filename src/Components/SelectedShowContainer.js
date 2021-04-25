@@ -18,7 +18,7 @@ class SelectedShowContainer extends Component {
 
   mapEpisodes = () => {
     return this.props.episodes.map((e) => {
-      if (e.season == this.state.selectedSeason) {
+      if (e.season === this.state.selectedSeason) {
         return (<Episode eachEpisode={e} key={e.id} />)
       }
     })
@@ -39,10 +39,14 @@ class SelectedShowContainer extends Component {
         <p>Premiered: {selectedShow.premiered}</p>
         <p>Status: {selectedShow.status}</p>
         <p>Average Rating: {selectedShow.rating.average}</p>
-        <select style={{ display: 'block' }} onChange={this.handleSelectionChange}>
-          {/* {this.mapSeasons()} */}
-        </select>
-        {/* {this.mapEpisodes()} */}
+        {(this.props.episodes.length === 0)
+          ?
+          <p>Loading..</p>
+          :
+          <select style={{ display: 'block' }} onChange={this.handleSelectionChange}>
+            {this.mapSeasons()}
+          </select>}
+        {(this.props.episodes.length === 0) ? <p>Loading..</p> : this.mapEpisodes()}
       </div>
     );
   }
